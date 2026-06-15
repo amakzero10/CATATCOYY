@@ -7,16 +7,9 @@ workflows:
       - name: Set up local.properties
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
-      - name: Fix Google AI Studio Signing Error
-        script: |
-          # Menghapus baris signingConfig bawaan Google AI Studio yang bikin eror
-          sed -i '' '/signingConfig = signingConfigs.getByName("debugConfig")/d' app/build.gradle.kts || true
       - name: Build Android APK using Gradle 9.3.1
         script: |
-          # Ambil Java 21 bawaan mesin
           sdk use java 21.0.2-open || true
-          
-          # Unduh dan jalankan Gradle 9.3.1 langsung
           wget https://services.gradle.org/distributions/gradle-9.3.1-bin.zip -P /tmp
           sudo unzip -o -d /opt/gradle /tmp/gradle-9.3.1-bin.zip
           /opt/gradle/gradle-9.3.1/bin/gradle assembleDebug
