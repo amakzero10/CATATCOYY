@@ -1,0 +1,14 @@
+def envFile = rootProject.file(".env.example")
+def envProps = new Properties()
+
+if (envFile.exists()) {
+    envFile.withInputStream { stream -> envProps.load(stream) }
+} else {
+    println "Warning: .env.example not found, using default/empty config"
+}
+
+android {
+    defaultConfig {
+        buildConfigField "String", "GEMINI_API_KEY", "\"${envProps.getProperty('GEMINI_API_KEY', '')}\""
+    }
+}
