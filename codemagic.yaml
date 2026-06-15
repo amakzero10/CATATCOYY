@@ -7,8 +7,12 @@ workflows:
       - name: Set up local.properties
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
-      - name: Install and Set Gradle 9.3.1
+      - name: Set up Java 21 and Gradle 9.3.1
         script: |
+          # Paksa ganti ke Java 21 bawaan mesin
+          sdk use java 21.0.2-open || true
+          
+          # Install Gradle terbaru
           wget https://services.gradle.org/distributions/gradle-9.3.1-bin.zip -P /tmp
           sudo unzip -d /opt/gradle /tmp/gradle-9.3.1-bin.zip
           export PATH=/opt/gradle/gradle-9.3.1/bin:$PATH
