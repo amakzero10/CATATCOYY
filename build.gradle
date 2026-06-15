@@ -1,14 +1,5 @@
-def envFile = rootProject.file(".env.example")
-def envProps = new Properties()
-
-if (envFile.exists()) {
-    envFile.withInputStream { stream -> envProps.load(stream) }
-} else {
-    println "Warning: .env.example not found, using default/empty config"
-}
-
-android {
-    defaultConfig {
-        buildConfigField "String", "GEMINI_API_KEY", "\"${envProps.getProperty('GEMINI_API_KEY', '')}\""
-    }
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.android) apply false
 }
